@@ -2,181 +2,245 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Привет, Аленка!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Благодарность</title>
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-  body {
-    min-height: 100vh;
-    background: linear-gradient(135deg, #ffd1e8 0%, #ffb3d9 50%, #ff9ecb 100%);
-    font-family: 'Comic Sans MS', 'Segoe UI', cursive, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-    padding: 20px;
-  }
+    body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+        padding: 20px;
+    }
 
-  /* Плавающие стикеры-котята на фоне */
-  .sticker {
-    position: absolute;
-    font-size: 60px;
-    opacity: 0.55;
-    animation: float 6s ease-in-out infinite;
-    user-select: none;
-    pointer-events: none;
-    filter: drop-shadow(0 4px 6px rgba(255, 105, 180, 0.4));
-  }
+    /* Флаг Боснии и Герцеговины как фон */
+    .flag-bg {
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        background: #002F6C; /* синий фон флага */
+    }
 
-  @keyframes float {
-    0%, 100% { transform: translateY(0) rotate(-8deg); }
-    50%      { transform: translateY(-25px) rotate(8deg); }
-  }
+    /* Жёлтый треугольник флага БиГ */
+    .flag-bg::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        background: #FECB00;
+        clip-path: polygon(100% 0, 100% 100%, 0 100%);
+    }
 
-  .s1  { top: 5%;  left: 5%;  animation-delay: 0s;   font-size: 70px; }
-  .s2  { top: 15%; right: 8%; animation-delay: 1s;   font-size: 55px; }
-  .s3  { bottom: 10%; left: 10%; animation-delay: 2s; font-size: 65px; }
-  .s4  { bottom: 8%; right: 12%; animation-delay: 0.5s; font-size: 75px; }
-  .s5  { top: 45%; left: 3%;  animation-delay: 1.5s; font-size: 50px; }
-  .s6  { top: 40%; right: 4%; animation-delay: 2.5s; font-size: 60px; }
-  .s7  { top: 70%; left: 45%; animation-delay: 3s;   font-size: 45px; }
-  .s8  { top: 2%;  left: 45%; animation-delay: 1.8s; font-size: 55px; }
-  .s9  { bottom: 25%; right: 40%; animation-delay: 0.8s; font-size: 50px; }
-  .s10 { top: 25%; left: 30%; animation-delay: 2.2s; font-size: 40px; }
+    /* Белые звёзды вдоль гипотенузы треугольника */
+    .stars {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+    }
 
-  /* Заголовок */
-  h1 {
-    color: #d63384;
-    font-size: 2.4rem;
-    text-align: center;
-    text-shadow: 2px 2px 0 #fff, 4px 4px 8px rgba(214, 51, 132, 0.3);
-    margin-bottom: 40px;
-    z-index: 2;
-    animation: bounce 2s ease-in-out infinite;
-  }
+    .star {
+        position: absolute;
+        color: #fff;
+        font-size: 22px;
+        line-height: 1;
+        transform: translate(-50%, -50%);
+    }
 
-  @keyframes bounce {
-    0%, 100% { transform: translateY(0); }
-    50%      { transform: translateY(-10px); }
-  }
+    /* Плавающие эмоджи-флаги */
+    .emoji-float {
+        position: fixed;
+        font-size: 32px;
+        opacity: 0.85;
+        animation: float 8s ease-in-out infinite;
+        z-index: 0;
+        pointer-events: none;
+        user-select: none;
+    }
 
-  /* Кнопка */
-  .btn {
-    background: linear-gradient(145deg, #ff69b4, #ff1493);
-    color: white;
-    border: 4px solid #fff;
-    border-radius: 50px;
-    padding: 22px 42px;
-    font-size: 1.3rem;
-    font-family: inherit;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(255, 20, 147, 0.5),
-                inset 0 -4px 0 rgba(0, 0, 0, 0.1);
-    transition: all 0.25s ease;
-    z-index: 3;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-    max-width: 90%;
-    line-height: 1.3;
-  }
+    @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(-8deg); }
+        50% { transform: translateY(-25px) rotate(8deg); }
+    }
 
-  .btn:hover {
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 12px 28px rgba(255, 20, 147, 0.7),
-                inset 0 -4px 0 rgba(0, 0, 0, 0.1);
-  }
+    /* Основная карточка */
+    .card {
+        position: relative;
+        z-index: 2;
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(6px);
+        border-radius: 24px;
+        padding: 48px 40px;
+        max-width: 640px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+        border: 3px solid #FECB00;
+    }
 
-  .btn:active {
-    transform: translateY(2px) scale(0.98);
-  }
+    .thank-text {
+        font-size: clamp(20px, 4vw, 30px);
+        font-weight: 700;
+        color: #002F6C;
+        line-height: 1.5;
+        margin-bottom: 32px;
+    }
 
-  /* Скрытый текст */
-  .message {
-    margin-top: 35px;
-    background: rgba(255, 255, 255, 0.9);
-    border: 4px dashed #ff69b4;
-    border-radius: 30px;
-    padding: 30px 40px;
-    font-size: 1.5rem;
-    color: #c2185b;
-    text-align: center;
-    max-width: 650px;
-    line-height: 1.6;
-    box-shadow: 0 10px 30px rgba(255, 105, 180, 0.4);
-    opacity: 0;
-    transform: scale(0.7) translateY(20px);
-    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-    pointer-events: none;
-    z-index: 2;
-    position: relative;
-  }
+    .thank-text .name {
+        color: #b8860b;
+        display: inline-block;
+    }
 
-  .message.show {
-    opacity: 1;
-    transform: scale(1) translateY(0);
-    pointer-events: auto;
-  }
+    button {
+        font-size: 20px;
+        font-weight: 700;
+        padding: 16px 42px;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        color: #fff;
+        background: linear-gradient(135deg, #002F6C, #00509e);
+        box-shadow: 0 8px 20px rgba(0, 47, 108, 0.45);
+        transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.3s;
+    }
 
-  .message::before,
-  .message::after {
-    content: '🐱';
-    position: absolute;
-    font-size: 2rem;
-  }
-  .message::before { top: -20px; left: 15px; }
-  .message::after  { bottom: -20px; right: 15px; }
+    button:hover {
+        transform: translateY(-3px) scale(1.04);
+        box-shadow: 0 12px 26px rgba(0, 47, 108, 0.6);
+    }
 
-  @media (max-width: 600px) {
-    h1 { font-size: 1.7rem; }
-    .btn { font-size: 1rem; padding: 18px 28px; }
-    .message { font-size: 1.15rem; padding: 22px 24px; }
-    .sticker { font-size: 40px !important; }
-  }
+    button:active {
+        transform: translateY(1px) scale(0.98);
+    }
+
+    button:disabled {
+        opacity: 0.55;
+        cursor: default;
+        transform: none;
+        box-shadow: 0 8px 20px rgba(0, 47, 108, 0.25);
+    }
+
+    /* Блок результата */
+    .result {
+        display: none;
+        margin-top: 8px;
+        animation: pop 0.5s ease;
+    }
+
+    .result.show {
+        display: block;
+    }
+
+    @keyframes pop {
+        0% { transform: scale(0.6); opacity: 0; }
+        70% { transform: scale(1.08); }
+        100% { transform: scale(1); opacity: 1; }
+    }
+
+    .result-text {
+        font-size: clamp(22px, 4.5vw, 32px);
+        font-weight: 800;
+        color: #1a7f37;
+        margin-bottom: 18px;
+    }
+
+    .checks {
+        display: flex;
+        justify-content: center;
+        gap: 14px;
+        font-size: 40px;
+        flex-wrap: wrap;
+    }
+
+    .checks span {
+        color: #1a7f37;
+        animation: checkIn 0.45s ease backwards;
+        text-shadow: 0 4px 10px rgba(26, 127, 55, 0.4);
+    }
+
+    .checks span:nth-child(1) { animation-delay: 0.05s; }
+    .checks span:nth-child(2) { animation-delay: 0.2s; }
+    .checks span:nth-child(3) { animation-delay: 0.35s; }
+    .checks span:nth-child(4) { animation-delay: 0.5s; }
+    .checks span:nth-child(5) { animation-delay: 0.65s; }
+
+    @keyframes checkIn {
+        0% { transform: scale(0) rotate(-30deg); opacity: 0; }
+        100% { transform: scale(1) rotate(0); opacity: 1; }
+    }
 </style>
 </head>
 <body>
 
-  <!-- Фоновые стикеры-котята -->
-  <div class="sticker s1">🐱</div>
-  <div class="sticker s2">😺</div>
-  <div class="sticker s3">😸</div>
-  <div class="sticker s4">🐈</div>
-  <div class="sticker s5">😻</div>
-  <div class="sticker s6">🐾</div>
-  <div class="sticker s7">😽</div>
-  <div class="sticker s8">🐱</div>
-  <div class="sticker s9">🎀</div>
-  <div class="sticker s10">💖</div>
+    <!-- Фон-флаг -->
+    <div class="flag-bg"></div>
+    <div class="stars" id="stars"></div>
 
-  <h1>🐾 Мур-мур, это для тебя! 🐾</h1>
+    <!-- Плавающие эмоджи-флаги -->
+    <div class="emoji-float" style="top: 8%;  left: 6%;  animation-delay: 0s;">🇧🇦</div>
+    <div class="emoji-float" style="top: 15%; right: 9%; animation-delay: 1.2s;">🇧🇦</div>
+    <div class="emoji-float" style="bottom: 12%; left: 12%; animation-delay: 2.4s;">🇧🇦</div>
+    <div class="emoji-float" style="bottom: 20%; right: 8%; animation-delay: 0.6s;">🇧🇦</div>
+    <div class="emoji-float" style="top: 45%; left: 3%;  animation-delay: 3s;">🇧🇦</div>
+    <div class="emoji-float" style="top: 55%; right: 4%; animation-delay: 1.8s;">🇧🇦</div>
+    <div class="emoji-float" style="top: 80%; left: 45%; animation-delay: 2s; font-size: 26px;">🇧🇦</div>
+    <div class="emoji-float" style="top: 5%;  left: 48%; animation-delay: 3.6s; font-size: 26px;">🇧🇦</div>
 
-  <button class="btn" id="magicBtn">
-    привет, Аленка, я намутила тебе сайт
-  </button>
+    <!-- Карточка -->
+    <div class="card">
+        <p class="thank-text">
+            Спасибо вам за помощь с программой,
+            дорогой <span class="name">Никита Сергеевич</span>
+        </p>
 
-  <div class="message" id="msg">
-    я не хочу фигней страдать в экселе со всеми вот этими вот кодами,<br>
-    давай лучше фигней страдать, улыбнись 😊💕
-  </div>
+        <button id="acceptBtn">Принять благодарность</button>
+
+        <div class="result" id="result">
+            <div class="result-text">Я отблагодарён</div>
+            <div class="checks">
+                <span>✔</span><span>✔</span><span>✔</span><span>✔</span><span>✔</span>
+            </div>
+        </div>
+    </div>
 
 <script>
-  const btn = document.getElementById('magicBtn');
-  const msg = document.getElementById('msg');
+    // Генерация звёзд вдоль диагонали флага
+    (function createStars() {
+        const container = document.getElementById('stars');
+        const count = 14;
+        for (let i = 0; i < count; i++) {
+            const t = i / (count - 1);          // 0 → 1 вдоль гипотенузы
+            const x = 100 - t * 100;            // справа налево
+            const y = t * 100;                  // сверху вниз
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.textContent = '★';
+            star.style.left = x + '%';
+            star.style.top = y + '%';
+            container.appendChild(star);
+        }
+    })();
 
-  btn.addEventListener('click', () => {
-    msg.classList.toggle('show');
-    if (msg.classList.contains('show')) {
-      btn.textContent = 'ещё разок? 💗';
-    } else {
-      btn.textContent = 'привет, Аленка, я намутила тебе сайт';
-    }
-  });
+    // Обработка кнопки
+    const btn = document.getElementById('acceptBtn');
+    const result = document.getElementById('result');
+
+    btn.addEventListener('click', () => {
+        btn.disabled = true;
+        btn.textContent = 'Благодарность принята';
+        result.classList.add('show');
+    });
 </script>
 
 </body>
